@@ -1,8 +1,20 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { useContext, useEffect } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Router from "next/router";
+import AuthContext from "../stores/authContext";
 
 const HomePage = () => {
+  const { user, login, logout } = useContext(AuthContext);
+
+  useEffect(() => {
+    const { pathname } = Router;
+    if (pathname == "/" && user == null) {
+      Router.push("/login");
+    }
+  }, [user]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -12,14 +24,22 @@ const HomePage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1>Hola mundo</h1>
+        {user ? (
+          <>
+            <p>{user.id}</p>
+            <p>{user.name}</p>
+            <p>{user.email}</p>
+            <img src={user.avatar} alt={user.name} />
+            <p>{user.admin?'admin':'user'}</p>
+          </>
+        ) : null}
       </main>
 
       <footer className={styles.footer}>
         <p className={styles.footer__text}>Copyright &copy; | x Team 2022</p>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default HomePage
+export default HomePage;

@@ -11,25 +11,29 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Try to connect to Flask backend
+    // test the connection with backend
+  }, []);
 
-    setTimeout(() => {
-      setUser({
-        id: "1",
-        name: "William Monroy",
-        email: "example@gmail.com",
-        avatar: "https://avatars.githubusercontent.com/u/58092741?v=4",
-        admin: true,
-      });
-      // console.log(user);
-    }, 1500);
-  }, [user]);
+  const login = () => {
+    setUser({
+      id: "1",
+      name: "William Monroy",
+      email: "example@gmail.com",
+      avatar: "https://avatars.githubusercontent.com/u/58092741?v=4",
+      admin: true,
+    });
+    // console.log(user);
+  };
 
-  // const login = () => {
+  const logout = () => {
+    setUser(null);
+  };
 
-  // }
+  const context = { user, login, logout };
 
-  return <AuthContext.Provider value="hello">{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
+  );
 };
 
 export default AuthContext;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Modal,
   Input,
@@ -13,8 +13,11 @@ import styles from "../styles/Login.module.css";
 import { Password } from "../components/Password";
 import { Mail } from "../components/Mail";
 import Link from "next/link";
+import AuthContext from "../stores/authContext";
 
 const Login = () => {
+  const {user, login, logout} = useContext(AuthContext);
+
   const [visible, setVisible] = useState(false);
   const [viewLoader, setViewLoader] = useState(true);
 
@@ -69,8 +72,8 @@ const Login = () => {
             Regístrate
             </Button>
           </Link>
-          <Link href="/home" style={{textDecoration: 'none'}} passHref>
-            <Button auto>Iniciar Sesión</Button>
+          <Link href="/" style={{textDecoration: 'none'}} passHref>
+            <Button auto onClick={login}>Iniciar Sesión</Button>
           </Link>
         </Modal.Footer>
       </Modal>

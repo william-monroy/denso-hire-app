@@ -28,13 +28,13 @@ const densoLightTheme = createTheme({
 });
 
 function MyApp({ Component, pageProps }) {
-  const val = useContext(AuthContext);
+  const {user, login, logout} = useContext(AuthContext);
   // console.log(val);
 
   return (
     <NextUIProvider theme={densoLightTheme}>
       <AuthContextProvider>
-        {val.user ? <Navbar /> : null}
+        <Navbar />
         <Component {...pageProps} />
       </AuthContextProvider>
     </NextUIProvider>
